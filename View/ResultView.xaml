@@ -31,7 +31,7 @@
 
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <local:ApartmentItemView/>
+                    <local:TourItemView/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
 

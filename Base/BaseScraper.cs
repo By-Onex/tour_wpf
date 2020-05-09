@@ -9,7 +9,7 @@ namespace TourApp.Base
 {
     public abstract class BaseScraper
     {
-        public abstract Task<List<TourItem>> GetTours(SearchTourItem argumentModel);
-        public abstract Task<List<FoundTour>> GetAutoSearchTours(List<SearchTourItem> argumentModel);
+        public abstract Task<List<TourItem>> GetTours(SearchTourItem searchParams);
+        public abstract Task<List<FoundTour>> GetAutoSearchTours(List<SearchTourItem> searchParams);
     }
 }

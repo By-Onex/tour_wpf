@@ -72,6 +72,7 @@
     <Compile Include="Model\FromToCityModel.cs" />
     <Compile Include="Model\SearchArgumentModel.cs" />
     <Compile Include="Model\SearchModel.cs" />
+    <Compile Include="Scraper\BankScraper.cs" />
     <Compile Include="ViewModel\FromToCityViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ResultViewModel.cs" />
@@ -81,8 +82,8 @@
     <Compile Include="View\AnimationCircle.xaml.cs">
       <DependentUpon>AnimationCircle.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ApartmentItemView.xaml.cs">
-      <DependentUpon>ApartmentItemView.xaml</DependentUpon>
+    <Compile Include="View\TourItemView.xaml.cs">
+      <DependentUpon>TourItemView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\FromToCityView.xaml.cs">
       <DependentUpon>FromToCityView.xaml</DependentUpon>
@@ -110,7 +111,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ApartmentItemView.xaml">
+    <Page Include="View\TourItemView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

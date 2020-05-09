@@ -18,9 +18,9 @@ namespace TourApp.View
     /// <summary>
     /// Логика взаимодействия для ApartmentItemView.xaml
     /// </summary>
-    public partial class ApartmentItemView : UserControl
+    public partial class TourItemView : UserControl
     {
-        public ApartmentItemView()
+        public TourItemView()
         {
             InitializeComponent();
         }

@@ -6,6 +6,9 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using TourApp.DB;
+using TourApp.Scraper;
 using TourApp.ViewModel;
 
 namespace TourApp.Model
@@ -25,6 +28,23 @@ namespace TourApp.Model
                 result.Add(new ResortItem() { Id = res.id, Value = res.value });
             }
             return result;
+        }
+
+        public async void GetTours(SearchTourItem searchParams)
+        {
+            var tt = new BankScraper();
+            var result = await tt.GetTours(searchParams);
+
+            ResultViewModel.Instance.Items = result;
+
+            ResultViewModel.Instance.ShowAnimation = Visibility.Hidden;
+            ResultViewModel.Instance.ShowResult = Visibility.Visible;
+
+            if (result.Count == 0)
+            {
+                ResultViewModel.Instance.ShowStatus = Visibility.Visible;
+                ResultViewModel.Instance.ShowResult = Visibility.Hidden;
+            }
         }
     }
 }

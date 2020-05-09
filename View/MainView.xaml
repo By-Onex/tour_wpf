@@ -1,0 +1,40 @@
+﻿<Window x:Class="TourApp.View.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TourApp.View"
+        xmlns:viewModel="clr-namespace:TourApp.ViewModel"
+        mc:Ignorable="d"
+        Title="PTour" Height="450" Width="800" SizeChanged="Window_SizeChanged" MinWidth="560" MinHeight="450">
+    <Grid DataContext="{x:Static viewModel:MainViewModel.Instance}" Height="{Binding HeightGrid}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="{Binding HeightGrid}"/>
+        </Grid.RowDefinitions>
+        
+        <Image Source="pack://siteoforigin:,,,/Resources/bg.jpg" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="UniformToFill"></Image>
+
+        <Grid Grid.Row="0"  x:Name="AnimGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="{Binding HeightGrid}"></RowDefinition>
+                <RowDefinition Height="{Binding HeightGrid}"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="{Binding WidthGrid}"/>
+                <ColumnDefinition Width="{Binding WidthGrid}"/>
+            </Grid.ColumnDefinitions>
+
+            <DockPanel Grid.Row="0">
+                <Border MinWidth="500"  CornerRadius="4" Background="#99FFFFFF" BorderBrush="White" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <StackPanel  >
+                        <TextBlock TextWrapping="Wrap" FontFamily="Malgun Gothic" FontWeight="Bold" FontSize="18" HorizontalAlignment="Center" Margin="0,20,0,0" Padding="0" Text="{Binding PageStateText}"></TextBlock>
+                        <ContentControl Content="{ Binding PageContent }" />
+                    </StackPanel>
+                </Border>
+            </DockPanel>
+            <local:ResultView x:Name="resultGridView" Grid.Row="1"  Grid.Column="0" Height="{Binding HeightGrid}"/>
+            <!--<local:AutoSearchView Grid.Row="0" Grid.Column="1"/>-->
+        </Grid>
+    </Grid>
+</Window>

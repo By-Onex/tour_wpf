@@ -17,7 +17,7 @@ namespace TourApp.Model
     {
         public async Task<ObservableCollection<ResortItem>> GetResorts(int from, int to)
         {
-            var url = string.Format("https://search.bankturov.ru/api/mobile/v1/formData?departure={0}&destination={1}", from, to);
+            /*var url = string.Format("https://search.bankturov.ru/api/mobile/v1/formData?departure={0}&destination={1}", from, to);
             var httpClient = new HttpClient();
             string html = await httpClient.GetStringAsync(url);
 
@@ -26,13 +26,13 @@ namespace TourApp.Model
             foreach (var res in resorts.data.resorts)
             {
                 result.Add(new ResortItem() { Id = res.id, Value = res.value });
-            }
-            return result;
+            }*/
+            return new ObservableCollection<ResortItem>();
         }
 
         public async void GetTours(SearchTourItem searchParams)
         {
-            var tt = new BankScraper();
+            var tt = new AnexScraper();
             var result = await tt.GetTours(searchParams);
 
             ResultViewModel.Instance.Items = result;

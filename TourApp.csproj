@@ -72,13 +72,13 @@
     <Compile Include="Model\FromToCityModel.cs" />
     <Compile Include="Model\SearchArgumentModel.cs" />
     <Compile Include="Model\SearchModel.cs" />
+    <Compile Include="Scraper\AnexScraper.cs" />
     <Compile Include="Scraper\BankScraper.cs" />
     <Compile Include="ViewModel\FromToCityViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ResultViewModel.cs" />
     <Compile Include="ViewModel\SearchViewModel.cs" />
     <Compile Include="ViewModel\StartMenuViewModel.cs" />
-    <Compile Include="ViewModel\TypeSearchViewModel.cs" />
     <Compile Include="View\AnimationCircle.xaml.cs">
       <DependentUpon>AnimationCircle.xaml</DependentUpon>
     </Compile>

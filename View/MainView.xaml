@@ -7,7 +7,7 @@
         xmlns:viewModel="clr-namespace:TourApp.ViewModel"
         mc:Ignorable="d"
         Title="PTour" Height="450" Width="800" SizeChanged="Window_SizeChanged" MinWidth="560" MinHeight="450">
-    <Grid DataContext="{x:Static viewModel:MainViewModel.Instance}" Height="{Binding HeightGrid}">
+    <Grid DataContext="{x:Static viewModel:MainViewModel.Instance}" Background="Red" Height="{Binding HeightGrid}">
         <Grid.RowDefinitions>
             <RowDefinition Height="{Binding HeightGrid}"/>
         </Grid.RowDefinitions>

@@ -181,7 +181,7 @@
 
                             <ContentPresenter Name="ContentSite" Margin="5, 3, 23, 3" IsHitTestVisible="False"
                               HorizontalAlignment="Left" VerticalAlignment="Center"                           
-                              Content="{TemplateBinding Text}" 
+                              Content="{TemplateBinding SelectedItem}" 
                               ContentTemplate="{TemplateBinding ComboBox.SelectionBoxItemTemplate}"
                               ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"/>
 

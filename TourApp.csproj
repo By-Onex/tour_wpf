@@ -37,6 +37,9 @@
     <Reference Include="LiteDB, Version=5.0.7.0, Culture=neutral, PublicKeyToken=4ee40123013c9f27, processorArchitecture=MSIL">
       <HintPath>packages\LiteDB.5.0.7\lib\net45\LiteDB.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -66,7 +69,10 @@
     <Compile Include="DB\FoundTour.cs" />
     <Compile Include="DB\SearchTourItem.cs" />
     <Compile Include="DB\TourItem.cs" />
+    <Compile Include="Model\FromToCityModel.cs" />
     <Compile Include="Model\SearchArgumentModel.cs" />
+    <Compile Include="Model\SearchModel.cs" />
+    <Compile Include="ViewModel\FromToCityViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ResultViewModel.cs" />
     <Compile Include="ViewModel\SearchViewModel.cs" />
@@ -77,6 +83,9 @@
     </Compile>
     <Compile Include="View\ApartmentItemView.xaml.cs">
       <DependentUpon>ApartmentItemView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\FromToCityView.xaml.cs">
+      <DependentUpon>FromToCityView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
@@ -97,14 +106,15 @@
     <Compile Include="View\StartMenuView.xaml.cs">
       <DependentUpon>StartMenuView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\TypeSearchView.xaml.cs">
-      <DependentUpon>TypeSearchView.xaml</DependentUpon>
-    </Compile>
     <Page Include="View\AnimationCircle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ApartmentItemView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\FromToCityView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -121,10 +131,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\StartMenuView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\TypeSearchView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -157,7 +163,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\bg.jpg" />
+    <None Include="Resources\bg.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

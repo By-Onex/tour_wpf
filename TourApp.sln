@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TourApp", "TourApp.csproj", "{0B5F28DF-BA6A-463F-A8CE-64833B4DDF6D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TourUnitTest", "..\TourUnitTest\TourUnitTest.csproj", "{E9DA682D-32B3-405E-B2C0-DF80E8408AD1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{0B5F28DF-BA6A-463F-A8CE-64833B4DDF6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B5F28DF-BA6A-463F-A8CE-64833B4DDF6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0B5F28DF-BA6A-463F-A8CE-64833B4DDF6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9DA682D-32B3-405E-B2C0-DF80E8408AD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9DA682D-32B3-405E-B2C0-DF80E8408AD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9DA682D-32B3-405E-B2C0-DF80E8408AD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9DA682D-32B3-405E-B2C0-DF80E8408AD1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace TourApp.View
 {
     /// <summary>
-    /// Логика взаимодействия для TypeSearchView.xaml
+    /// Логика взаимодействия для FromToCityView.xaml
     /// </summary>
-    public partial class TypeSearchView : UserControl
+    public partial class FromToCityView : UserControl
     {
-        public TypeSearchView()
+        public FromToCityView()
         {
             InitializeComponent();
         }

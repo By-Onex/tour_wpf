@@ -15,64 +15,59 @@
     <StackPanel DataContext="{StaticResource SearchViewModel}" Style="{StaticResource Def_StackPanel}">
         <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,3">
             <StackPanel Orientation="Horizontal">
-                <GroupBox Header="Район" Style="{StaticResource Def_GroupBox}">
-                    <ComboBox Text="Район" Margin="5,5,5,5" Width="130" Style="{StaticResource ComboBoxFlatStyle}" IsReadOnly="True"  VerticalAlignment="Bottom" HorizontalAlignment="Center" SelectedValue="{Binding District}" SelectedValuePath="Content">
-                        <ComboBoxItem>Заводской</ComboBoxItem>
-                        <ComboBoxItem>Кузнецкий</ComboBoxItem>
-                        <ComboBoxItem>Куйбышевский</ComboBoxItem>
-                        <ComboBoxItem>Новоильинский</ComboBoxItem>
-                        <ComboBoxItem>Орджоникидзевский</ComboBoxItem>
-                        <ComboBoxItem>Центральный</ComboBoxItem>
-                        <ComboBoxItem>Любой</ComboBoxItem>
+                <GroupBox Header="Курорт" Style="{StaticResource Def_GroupBox}">
+                    <ComboBox Style="{StaticResource ComboBoxFlatStyle}" ItemsSource="{Binding ResortItems}" Text="Курорт" Height="25" Padding="5,0,0,0" Margin="5,5,5,5" Width="130" IsReadOnly="True"  VerticalAlignment="Bottom" HorizontalAlignment="Center" SelectedItem="{Binding ResortSelected}" Background="White">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <Label Style="{StaticResource Def_Label}" Content="{Binding Value}" Height="20" Padding="5,0,0,0"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
                     </ComboBox>
                 </GroupBox>
 
                 <GroupBox Header="Цена (тыс. руб.)" Style="{StaticResource Def_GroupBox}">
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
                         <Label Style="{StaticResource Def_Label}" Content="От"/>
-                        <TextBox Style="{StaticResource Def_TextBox}" Text="{Binding MinPrice}" VerticalAlignment="Center" PreviewTextInput="TextBox_PreviewTextInput" Width="50" MaxWidth="50"/>
+                        <TextBox Style="{StaticResource Def_TextBox}" Text="{Binding Path=MinPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" PreviewTextInput="TextBox_PreviewTextInput" Width="50" MaxWidth="50"/>
                         <Label Style="{StaticResource Def_Label}" Content="До"/>
-                        <TextBox Style="{StaticResource Def_TextBox}" Text="{Binding MaxPrice}" VerticalAlignment="Center" PreviewTextInput="TextBox_PreviewTextInput"  Width="50"  MaxWidth="50"/>
+                        <TextBox Style="{StaticResource Def_TextBox}" Text="{Binding Path=MaxPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" PreviewTextInput="TextBox_PreviewTextInput"  Width="50"  MaxWidth="50"/>
                     </StackPanel>
                 </GroupBox>
 
-                <GroupBox Header="Площадь" Style="{StaticResource Def_GroupBox}">
-                    <StackPanel Orientation="Horizontal">
+                <GroupBox Header="Ночей" Style="{StaticResource Def_GroupBox}">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
                         <Label Style="{StaticResource Def_Label}" Content="От"/>
-                        <TextBox Style="{StaticResource Def_TextBox}" Text="{Binding MinArea}" VerticalAlignment="Center" PreviewTextInput="TextBox_PreviewTextInput"/>
+                        <TextBox Style="{StaticResource Def_TextBox}" Text="{Binding NightStart}" VerticalAlignment="Center" PreviewTextInput="TextBox_PreviewTextInput"/>
                         <Label Style="{StaticResource Def_Label}" Content="До"/>
-                        <TextBox Style="{StaticResource Def_TextBox}" Text="{Binding MaxArea}" VerticalAlignment="Center" PreviewTextInput="TextBox_PreviewTextInput"/>
+                        <TextBox Style="{StaticResource Def_TextBox}" Text="{Binding NightEnd}" VerticalAlignment="Center" PreviewTextInput="TextBox_PreviewTextInput"/>
                     </StackPanel>
                 </GroupBox>
 
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,10,0,0">
-                <GroupBox Header="Количество комнат" Style="{StaticResource Def_GroupBox}">
-                    <ComboBox Text="Комнаты" Width="130" Style="{StaticResource ComboBoxFlatStyle}" Margin="5,5,5,5" VerticalAlignment="Bottom" HorizontalAlignment="Center" SelectedValue="{Binding RoomCount}" SelectedValuePath="Content">
-                        <ComboBoxItem>1</ComboBoxItem>
-                        <ComboBoxItem>2</ComboBoxItem>
-                        <ComboBoxItem>3</ComboBoxItem>
-                        <ComboBoxItem>4+</ComboBoxItem>
-                        <ComboBoxItem>Любое</ComboBoxItem>
-                    </ComboBox>
-                </GroupBox>
-
-                <GroupBox Header="Этажность" Style="{StaticResource Def_GroupBox}">
+                <GroupBox Header="Дата вылета" Style="{StaticResource Def_GroupBox}">
                     <StackPanel Orientation="Horizontal">
-                        <Label Style="{StaticResource Def_Label}" Content="От"/>
-                        <TextBox Style="{StaticResource Def_TextBox}" Text="{Binding MinStoreys}" VerticalAlignment="Center" PreviewTextInput="TextBox_PreviewTextInput"/>
-                        <Label Style="{StaticResource Def_Label}" Content="До"/>
-                        <TextBox Style="{StaticResource Def_TextBox}" Text="{Binding MaxStoreys}" VerticalAlignment="Center" PreviewTextInput="TextBox_PreviewTextInput"/>
+                        
+                        <Label Style="{StaticResource Def_Label}" Content="С"/>
+                        <Popup IsOpen="{Binding LeftCalendar}">
+                            <Calendar Margin="20,0,0,0" SelectedDate="{Binding Path=SelectedDateTo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></Calendar>
+                        </Popup>
+                        <TextBox Style="{StaticResource Def_TextBox}" Width="100" Text="{Binding DateFrom}" VerticalAlignment="Center" PreviewTextInput="TextBox_PreviewTextInput"/>
+                        <Label Style="{StaticResource Def_Label}" Content="По"/>
+                        <Popup IsOpen="{Binding RightCalendar}">
+                            <Calendar Margin="148,0" SelectedDate="{Binding SelectedDateTo}"></Calendar>
+                        </Popup>
+                        <TextBox Style="{StaticResource Def_TextBox}" Width="100" Text="{Binding DateTo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" PreviewTextInput="TextBox_PreviewTextInput"/>
                     </StackPanel>
                 </GroupBox>
 
-                <GroupBox Header="Этаж"  Style="{StaticResource Def_GroupBox}">
+                <GroupBox Header="Количество людей" Style="{StaticResource Def_GroupBox}">
                     <StackPanel Orientation="Horizontal">
-                        <Label Style="{StaticResource Def_Label}" Content="От"/>
-                        <TextBox Style="{StaticResource Def_TextBox}" Text="{Binding MinFloor}" VerticalAlignment="Center" PreviewTextInput="TextBox_PreviewTextInput"/>
-                        <Label Style="{StaticResource Def_Label}" Content="До"/>
-                        <TextBox Style="{StaticResource Def_TextBox}" Text="{Binding MaxFloor}" VerticalAlignment="Center" PreviewTextInput="TextBox_PreviewTextInput"/>
+                        <Label Style="{StaticResource Def_Label}" Content="Взрослых"/>
+                        <TextBox Style="{StaticResource Def_TextBox}" Text="{Binding AdultCount}" VerticalAlignment="Center" PreviewTextInput="TextBox_PreviewTextInput"/>
+                        <Label Style="{StaticResource Def_Label}" Content="Детей"/>
+                        <TextBox Style="{StaticResource Def_TextBox}" Text="{Binding ChildCount}" VerticalAlignment="Center" PreviewTextInput="TextBox_PreviewTextInput"/>
                     </StackPanel>
                 </GroupBox>
             </StackPanel>
@@ -87,6 +82,7 @@
                 </Button>
 
             </StackPanel>
+
         </StackPanel>
     </StackPanel>
 </UserControl>

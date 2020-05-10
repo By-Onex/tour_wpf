@@ -26,7 +26,7 @@
                 <TextBox Style="{StaticResource Def_TextBox}" Text="{Binding Path=SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" MaxWidth="110" Margin="0,9,0,0" />
             </GroupBox>
         </StackPanel>
-        <ItemsControl x:Name="ResultList" Margin="30,60,15,7"  Style="{StaticResource Def_IC}" ItemsSource="{Binding Items}" Visibility="{Binding ShowResult}">
+        <ItemsControl x:Name="ResultList" Margin="30,60,15,7"  Style="{StaticResource Def_IC}" ItemsSource="{Binding Items, IsAsync=True}" Visibility="{Binding ShowResult}">
             <!---->
 
             <ItemsControl.ItemTemplate>

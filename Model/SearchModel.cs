@@ -15,6 +15,9 @@ namespace TourApp.Model
 {
     public class SearchModel
     {
+        private AnexScraper AnexScraper = new AnexScraper();
+
+        public static bool isLoading = false;
         public async Task<ObservableCollection<ResortItem>> GetResorts(int from, int to)
         {
             /*var url = string.Format("https://search.bankturov.ru/api/mobile/v1/formData?departure={0}&destination={1}", from, to);
@@ -32,8 +35,7 @@ namespace TourApp.Model
 
         public async void GetTours(SearchTourItem searchParams)
         {
-            var tt = new AnexScraper();
-            var result = await tt.GetTours(searchParams);
+            var result = await AnexScraper.GetTours(searchParams);
 
             ResultViewModel.Instance.Items = result;
 
@@ -44,6 +46,14 @@ namespace TourApp.Model
             {
                 ResultViewModel.Instance.ShowStatus = Visibility.Visible;
                 ResultViewModel.Instance.ShowResult = Visibility.Hidden;
+            }else
+            {
+                foreach(var i in ResultViewModel.Instance.Items)
+                {
+                    if (!isLoading) break;
+                    i.ImageUrlInfo = await AnexScraper.ImgUrl(i.HotelId);
+                    await Task.Delay(250);
+                }
             }
         }
     }

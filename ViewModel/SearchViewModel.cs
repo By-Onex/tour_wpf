@@ -239,6 +239,7 @@ namespace TourApp.ViewModel
                 ResultViewModel.Instance.ShowResult = Visibility.Hidden;
                 ResultViewModel.Instance.ShowStatus = Visibility.Hidden;
 
+                SearchModel.isLoading = true;
                 searchModel.GetTours(MainViewModel.Instance.SearchTourParams);
             });
 
@@ -246,8 +247,6 @@ namespace TourApp.ViewModel
             {
                 MainViewModel.Instance.ChangePage(((UserControl)Activator.CreateInstance((Type)nextPage)).Content, "С чем работать?");
             });
-
-            
             GetResorts();
         }
 

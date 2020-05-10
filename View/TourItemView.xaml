@@ -11,7 +11,8 @@
         <Label Style="{StaticResource Def_Label}" Content="{Binding Date}" HorizontalAlignment="Center"  Padding="3"/>
         <Label Style="{StaticResource Def_Label}" Content="{Binding Resort}" HorizontalAlignment="Center"  Padding="3"/>
         <Label Style="{StaticResource Def_Label}" Content="{Binding MealDescription}" HorizontalAlignment="Center"  Padding="3"/>
-        <!--<Image Width="200" Height="120" Source="{Binding ImageUrl}" Stretch="UniformToFill" HorizontalAlignment="Center" />-->
+        <Label Style="{StaticResource Def_Label}" Content="{Binding TownName}" HorizontalAlignment="Center"  Padding="3"/>
+        <Image Width="200" Height="120" Source="{Binding ImageUrlInfo}" Stretch="UniformToFill" HorizontalAlignment="Center" />
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Style="{StaticResource Def_Button}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,15,0,0" Command="{Binding ElementName=ResultList, Path=DataContext.AddFavorite}" CommandParameter="{Binding}" Content="{Binding ButtonText}"/>
             <Button Style="{StaticResource Def_Button}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,15,0,0" Command="{Binding ElementName=ResultList, Path=DataContext.OpenWebPage}" CommandParameter="{Binding PageUrl}">Открыть</Button>

@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Input;
 using TourApp.Base;
 using TourApp.DB;
+using TourApp.Model;
 using TourApp.View;
 
 namespace TourApp.ViewModel
@@ -77,7 +78,7 @@ namespace TourApp.ViewModel
             }
         }
 
-
+        public string ButtonText { get; set; } = "Добавить";
         public ICommand ReturnToTop { get; set; }
         public ICommand OpenWebPage { get; set; }
         public ICommand AddFavorite { get; set; }
@@ -96,6 +97,8 @@ namespace TourApp.ViewModel
                 ShowResult = Visibility.Hidden;
                 ShowAnimation = Visibility.Hidden;
                 ShowStatus = Visibility.Hidden;
+
+                SearchModel.isLoading = false;
             });
 
             OpenWebPage = new BaseCommand(url =>

@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:TourApp.View"
              xmlns:viewModel="clr-namespace:TourApp.ViewModel"
              mc:Ignorable="d" 
-             d:DesignHeight="250" d:DesignWidth="500">
+             d:DesignHeight="250" d:DesignWidth="550">
 
     <UserControl.Resources>
         <viewModel:SearchViewModel x:Key="SearchViewModel" />
@@ -15,17 +15,7 @@
     <StackPanel DataContext="{StaticResource SearchViewModel}" Style="{StaticResource Def_StackPanel}">
         <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,3">
             <StackPanel Orientation="Horizontal">
-                <GroupBox Header="Курорт" Style="{StaticResource Def_GroupBox}">
-                    <ComboBox Style="{StaticResource ComboBoxFlatStyle}" ItemsSource="{Binding ResortItems}" Text="Курорт" Height="25" Padding="5,0,0,0" Margin="5,5,5,5" Width="130" IsReadOnly="True"  VerticalAlignment="Bottom" HorizontalAlignment="Center" SelectedItem="{Binding ResortSelected}" Background="White">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <Label Style="{StaticResource Def_Label}" Content="{Binding Value}" Height="20" Padding="5,0,0,0"/>
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
-                </GroupBox>
-
-                <GroupBox Header="Цена (тыс. руб.)" Style="{StaticResource Def_GroupBox}">
+                <GroupBox Header="Цена" Style="{StaticResource Def_GroupBox}">
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
                         <Label Style="{StaticResource Def_Label}" Content="От"/>
                         <TextBox Style="{StaticResource Def_TextBox}" Text="{Binding Path=MinCost, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" PreviewTextInput="TextBox_PreviewTextInput" Width="50" MaxWidth="50"/>
@@ -50,27 +40,11 @@
                     <StackPanel Orientation="Horizontal">
                         <Label Style="{StaticResource Def_Label}" Content="С"/>
 
-                        <Popup IsOpen="{Binding LeftCalendar}" AllowsTransparency="True" Placement="Mouse">
-                            <Calendar SelectedDate="{Binding Path=SelectedDateFrom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></Calendar>
-                        </Popup>
-                        <TextBox Style="{StaticResource Def_TextBox}" Width="100" Text="{Binding Path=DateFrom, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" PreviewTextInput="TextBox_PreviewTextInput"/>
-
-                        <Label Style="{StaticResource Col_Label}" Content="Cal">
-                            <Label.InputBindings>
-                                <MouseBinding Command="{Binding ToggleLeftCal}" MouseAction="LeftClick" />
-                            </Label.InputBindings>
-                        </Label>
+                        <DatePicker Margin="0,1,0,0" BorderBrush="{x:Null}" Foreground="#FF333333" MaxWidth="115" SelectedDate="{Binding Path=SelectedDateFrom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <Label Style="{StaticResource Def_Label}" Content="По"/>
-                        <Popup IsOpen="{Binding RightCalendar}" AllowsTransparency="True" Placement="Mouse">
-                            <Calendar SelectedDate="{Binding SelectedDateTo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></Calendar>
-                        </Popup>
-                        <TextBox Style="{StaticResource Def_TextBox}" Width="100" Text="{Binding DateTo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" PreviewTextInput="TextBox_PreviewTextInput"/>
-                        <Label Style="{StaticResource Col_Label}" Content="Cal">
-                            <Label.InputBindings>
-                                <MouseBinding Command="{Binding ToggleRightCal}" MouseAction="LeftClick" />
-                            </Label.InputBindings>
-                        </Label>
+                        <DatePicker Margin="0,1,0,0" BorderBrush="{x:Null}" Foreground="#FF333333" MaxWidth="115" SelectedDate="{Binding Path=SelectedDateTo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
                     </StackPanel>
                 </GroupBox>
 
@@ -92,9 +66,7 @@
                 <Button Width="100" Margin="0,20,0,0" Style="{StaticResource Def_Button}" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding Path=OpenPage}" CommandParameter="{x:Type local:StartMenuView}">
                     <TextBlock TextWrapping="Wrap">Вернуться</TextBlock>
                 </Button>
-
             </StackPanel>
-
         </StackPanel>
     </StackPanel>
 </UserControl>

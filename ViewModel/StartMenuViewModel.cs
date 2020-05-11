@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using TourApp.Base;
@@ -20,6 +21,9 @@ namespace TourApp.ViewModel
                 if (p as string == "Favorite")
                 {
                     MainView.GoBottom();
+                    ResultViewModel.Instance.ShowAnimation = Visibility.Visible;
+                    ResultViewModel.Instance.ShowResult = Visibility.Hidden;
+                    ResultViewModel.Instance.favoriteModel.GetTours();
                 }
                 else
                 {

@@ -18,6 +18,7 @@ namespace TourApp.ViewModel
         public string Value { get; set; }
         public ObservableCollection<CityItem> ToCity { get; set; }
     }
+
     public class FromToCityViewModel : BaseViewModel
     {
         private FromToCityModel fromToCityModel;
@@ -28,7 +29,10 @@ namespace TourApp.ViewModel
             set
             {
                 _fromCitySearch = value;
-
+                if(_selectedFromCity == null)
+                {
+                    FromCity = new ObservableCollection<CityItem>(_fromCityTemp);
+                }
                 if (_selectedFromCity != null && value == _selectedFromCity.Value)
                 {
                     _fromCitySearch = _selectedFromCity.Value;
@@ -69,7 +73,6 @@ namespace TourApp.ViewModel
             set
             {
                 _toCitySearch = value;
-
                 if (_selectedToCity != null && value == _selectedToCity.Value)
                 {
                     _toCitySearch = _selectedToCity.Value;
@@ -134,14 +137,12 @@ namespace TourApp.ViewModel
                 {
                     _selectedFromCity = value;
                     FromCitySearch = value.Value;
+
+                    MainViewModel.Instance.SearchTourParams.FromCityId = value.Id;
                     NotifyPropertyChanged();
                     GetToCity(value);
-
+ 
                     MainViewModel.Instance.PageStateText = "Выберите страну для отдыха";
-                }
-                else
-                {
-                    MainViewModel.Instance.PageStateText = "Выберите город для вылета";
                 }
             }
         }
@@ -152,10 +153,11 @@ namespace TourApp.ViewModel
             get => _selectedToCity;
             set
             {
-                if (value != null)
+                 if (value != null)
                 {
                     _selectedToCity = value;
                     ToCitySearch = value.Value;
+                    MainViewModel.Instance.SearchTourParams.ToCityId = value.Id;
                     NotifyPropertyChanged();
                     GoNext = true;
                 }
@@ -178,8 +180,6 @@ namespace TourApp.ViewModel
         public FromToCityViewModel()
         {
             OpenPage = new BaseCommand((nextPage) => {
-                MainViewModel.Instance.SearchTourParams.FromCityId = _selectedFromCity.Id;
-                MainViewModel.Instance.SearchTourParams.ToCityId = _selectedToCity.Id;
                 MainViewModel.Instance.ChangePage(((UserControl)Activator.CreateInstance((Type)nextPage)).Content, "Заполните необходимые критерии");
             });
 
@@ -196,6 +196,12 @@ namespace TourApp.ViewModel
             _fromCityTemp = new ObservableCollection<CityItem>(res);   
         }
 
+        public void Update()
+        {
+            SelectedFromCity = _fromCityTemp.FirstOrDefault(c => c.Id == MainViewModel.Instance.SearchTourParams.FromCityId);
+            SelectedToCity = _toCityTemp.FirstOrDefault(c => c.Id == MainViewModel.Instance.SearchTourParams.ToCityId);
+            
+        }
         private void GetToCity(CityItem city)
         {
             ToCity = city.ToCity;

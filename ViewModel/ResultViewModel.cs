@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 using TourApp.Base;
@@ -11,7 +12,7 @@ namespace TourApp.ViewModel
     public class ResultViewModel : BaseViewModel
     {
         public static ResultViewModel Instance { get; } = new ResultViewModel();
-
+        public FavoriteModel favoriteModel = new FavoriteModel();
         private List<TourItem> _items;
         public List<TourItem> Items
         {
@@ -52,12 +53,14 @@ namespace TourApp.ViewModel
                 NotifyPropertyChanged();
             }
         }
+
         private string _sort;
         public string Sort
         {
             get => _sort;
             set
             {
+                Console.WriteLine(value);
                 if (_sort != value)
                 {
                     _sort = value;
@@ -78,7 +81,6 @@ namespace TourApp.ViewModel
             }
         }
 
-        public string ButtonText { get; set; } = "Добавить";
         public ICommand ReturnToTop { get; set; }
         public ICommand OpenWebPage { get; set; }
         public ICommand AddFavorite { get; set; }
@@ -106,49 +108,44 @@ namespace TourApp.ViewModel
                 System.Diagnostics.Process.Start(url.ToString());
             });
 
-            AddFavorite = new BaseCommand(apart =>
+            AddFavorite = new BaseCommand(tour =>
             {
-                /*if (apart is ApartmentItem)
+                if (tour is TourItem)
                 {
-                    FavoriteModel.AddFavorite(apart as ApartmentItem);
-                }*/
+                    favoriteModel.AddFavorite(tour as TourItem);
+                }
             });
         }
-
         private void Search()
         {
-            //_tempItems = new List<ApartmentItem>()
             if (!string.IsNullOrWhiteSpace(_searchText))
                 _items.ForEach(tour =>
                 {
-                    /*if (apart.Address.DistrictInfo.Contains(_searchText) || apart.Address.Info.Contains(_searchText) || apart.Info.Contains(_searchText))
-                        apart.Visibility = Visibility.Visible;
-                    else apart.Visibility = Visibility.Collapsed;*/
+                    if (tour.TourInfo.Contains(_searchText) || tour.MealDescription.Contains(_searchText) || tour.Date.Contains(_searchText))
+                        tour.Visibility = Visibility.Visible;
+                    else tour.Visibility = Visibility.Collapsed;
                 });
             else _items.ForEach(tour => tour.Visibility = Visibility.Visible);
         }
-
         private void SortList()
         {
-            /*if (_items != null && _sort != null)
+            if (_items != null && _sort != null)
             {
                 _items.Sort((a1, a2) =>
                 {
                     switch (_sort)
                     {
                         case "Цена ↑":
-                            return a1.Price == a2.Price ? 0 : a1.Price > a2.Price ? 1 : -1;
+                            return a1.Cost == a2.Cost ? 0 : a1.Cost > a2.Cost ? 1 : -1;
                         case "Цена ↓":
-                            return a1.Price == a2.Price ? 0 : a1.Price > a2.Price ? -1 : 1;
-                        case "Комнаты ↑":
-                            return a1.RoomCount == a2.RoomCount ? 0 : a1.RoomCount > a2.RoomCount ? 1 : -1;
-                        case "Комнаты ↓":
-                            return a1.RoomCount == a2.RoomCount ? 0 : a1.RoomCount > a2.RoomCount ? -1 : 1;
+                            return a1.Cost == a2.Cost ? 0 : a1.Cost > a2.Cost ? -1 : 1;
+                        case "Город":
+                            return a1.TownName == a2.TownName ? 0 : a1.TownName[0] > a2.TownName[0] ? 1 : -1;
                         default: return 0;
                     }
                 });
-                Items = new List<ApartmentItem>(_items);
-            }*/
+                Items = new List<TourItem>(_items);
+            }
         }
     }
 }

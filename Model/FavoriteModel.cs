@@ -6,40 +6,64 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using TourApp.Scraper;
 
 namespace TourApp.Model
 {
-    public static class FavoriteModel
+    public class FavoriteModel
     {
-        /*public static async void GetAparts()
+        public async void GetTours()
         {
-            var aparts = await Task.Run(() => { return DataBase.GetCollectionList<ApartmentItem>(DBTable.FavoriteApartment); });
-            aparts.ForEach(a => a.IsFavorite = true);
-            ResultViewModel.Instance.Items = aparts;
+            var tours = await Task.Run(() => { return DataBase.GetCollectionList<TourItem>(DBTable.FavoriteTour); });
+            tours.ForEach(a => a.IsFavorite = true);
+            ResultViewModel.Instance.Items = tours;
 
             ResultViewModel.Instance.ShowAnimation = Visibility.Hidden;
             ResultViewModel.Instance.ShowResult = Visibility.Visible;
 
-            if (aparts.Count == 0)
+            if (tours.Count == 0)
             {
                 ResultViewModel.Instance.ShowStatus = Visibility.Visible;
                 ResultViewModel.Instance.ShowResult = Visibility.Hidden;
             }
+            foreach(var t in tours)
+            {
+                if(t.ImageUrl == "pack://siteoforigin:,,,/Resources/noImage.png")
+                {
+                    t.ImageUrlInfo = await AnexScraper.ImgUrl(t.HotelId);
+                    DataBase.Update(t, DBTable.FavoriteTour);
+                    await Task.Delay(250);
+                }
+            }
         }
 
-        public static void AddFavorite(ApartmentItem apartment)
+        public void AddFavorite(TourItem tour)
         {
-            if (apartment.IsFavorite)
+            if (tour.IsFavorite)
             {
-                DataBase.Delete(apartment.Id, DBTable.FavoriteApartment);
-                apartment.IsFavorite = false;
+                DataBase.Delete(tour.Id, DBTable.FavoriteTour);
+                tour.IsFavorite = false;
             }
             else
             {
-                DataBase.Insert(apartment, DBTable.FavoriteApartment);
-                apartment.IsFavorite = true;
+                var items = DataBase.Query<FoundTour>(DBTable.FoundTour).Where(res =>
+                 tour.CityTo == res.Tour.CityTo &&
+                 tour.HotelId == res.Tour.HotelId &&
+                 tour.Cost == res.Tour.Cost &&
+                 tour.MealDescription == res.Tour.MealDescription &&
+                 tour.TownName == res.Tour.TownName).Limit(1).ToList();
+
+                if (items.Count == 0)
+                {
+                    DataBase.Insert(tour, DBTable.FavoriteTour);
+                    tour.IsFavorite = true;
+                }
+                else
+                {
+                    tour.Id = items[0].Id;
+                    tour.IsFavorite = true;
+                }
             }
         }
-        */
     }
 }

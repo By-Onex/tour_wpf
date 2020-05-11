@@ -14,10 +14,10 @@ namespace TourApp.ViewModel
         public int Id { get; set; }
         public string Value { get; set; }
     }
+
     public class SearchViewModel : BaseViewModel
     {
         public SearchModel searchModel;
-
         public string MinCost
         {
             get => MainViewModel.Instance.SearchTourParams.MinCost.ToString();
@@ -126,6 +126,33 @@ namespace TourApp.ViewModel
                 }
             }
         }
+        public string Description
+        {
+            get => MainViewModel.Instance.SearchTourParams.Description;
+            set
+            {
+                MainViewModel.Instance.SearchTourParams.Description = value;
+                NotifyPropertyChanged("Description");
+            }
+        }
+        public int FromCityId
+        {
+            get => MainViewModel.Instance.SearchTourParams.FromCityId;
+            set
+            {
+                MainViewModel.Instance.SearchTourParams.FromCityId = value;
+                NotifyPropertyChanged();
+            }
+        }
+        public int ToCityId
+        {
+            get => MainViewModel.Instance.SearchTourParams.ToCityId;
+            set
+            {
+                MainViewModel.Instance.SearchTourParams.ToCityId = value;
+                NotifyPropertyChanged();
+            }
+        }
 
         private DateTime _selectedDateFrom;
         public DateTime SelectedDateFrom
@@ -150,7 +177,7 @@ namespace TourApp.ViewModel
             }
         }
 
-        private ResortItem _resortSelected;
+        /*private ResortItem _resortSelected;
         public ResortItem ResortSelected
         {
             get => _resortSelected;
@@ -162,16 +189,18 @@ namespace TourApp.ViewModel
                     NotifyPropertyChanged();
                 }
             }
-        }
+        }*/
 
-        private ObservableCollection<ResortItem> _resortItemsTemp;
-        private ObservableCollection<ResortItem> _resortItems;
-        public ObservableCollection<ResortItem> ResortItems
+        private string _buttonText = "Добавить";
+        public string ButtonText { get => _buttonText; set { _buttonText = value; NotifyPropertyChanged("ButtonText"); } }
+
+        private FromToCityViewModel _fromToCityViewModel;
+        public FromToCityViewModel FromToCityViewModel
         {
-            get => _resortItems;
+            get => _fromToCityViewModel;
             set
             {
-                _resortItems = value;
+                _fromToCityViewModel = value;
                 NotifyPropertyChanged();
             }
         }
@@ -247,20 +276,32 @@ namespace TourApp.ViewModel
             {
                 MainViewModel.Instance.ChangePage(((UserControl)Activator.CreateInstance((Type)nextPage)).Content, "С чем работать?");
             });
-            GetResorts();
         }
 
+        public void Update()
+        {
+            NotifyPropertyChanged("MinCost");
+            NotifyPropertyChanged("MaxCost");
+
+            NotifyPropertyChanged("NightStart");
+            NotifyPropertyChanged("NightEnd");
+
+            NotifyPropertyChanged("AdultCount");
+            NotifyPropertyChanged("ChildCount");
+
+            NotifyPropertyChanged("DateTo");
+            NotifyPropertyChanged("DateFrom");
+
+            NotifyPropertyChanged("Description");
+
+            NotifyPropertyChanged("FromCityId");
+            NotifyPropertyChanged("ToCityId");
+
+            
+        }
         private bool CheckDate()
         {
-            return DateTime.TryParse(DateTo, out DateTime dateto) && DateTime.TryParse(DateFrom, out DateTime datefrom);
-        }
-
-        private async void GetResorts()
-        {
-            var res = await searchModel.GetResorts(MainViewModel.Instance.SearchTourParams.FromCityId, MainViewModel.Instance.SearchTourParams.ToCityId);
-            ResortItems = res;
-            _resortItemsTemp = new ObservableCollection<ResortItem>(res);
-            if (res.Count > 0) ResortSelected = res[0];
+            return DateTime.TryParse(DateTo, out DateTime _) && DateTime.TryParse(DateFrom, out DateTime _);
         }
     }
 }

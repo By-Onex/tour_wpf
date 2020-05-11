@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TourApp.Base;
 using TourApp.DB;
+using TourApp.Model;
 using TourApp.View;
 
 namespace TourApp.ViewModel
@@ -62,6 +63,8 @@ namespace TourApp.ViewModel
             DataBase.Connect();
             PageContent = new StartMenuView().Content;
             PageStateText = "Добро пожаловать! С чем работать?";
+
+            AutoSearchModel.StartSearchApartment();
         }
 
         public void ChangePage(object contetPage)

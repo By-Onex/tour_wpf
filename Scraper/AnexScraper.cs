@@ -12,9 +12,62 @@ namespace TourApp.Scraper
 {
     public class AnexScraper : BaseScraper
     {
-        public override Task<List<FoundTour>> GetAutoSearchTours(List<SearchTourItem> searchParams)
+        public override async Task<List<FoundTour>> GetAutoSearchTours(List<SearchTourItem> searchParams)
         {
-            throw new NotImplementedException();
+            var results = new List<FoundTour>();
+
+            var httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Add("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36");
+
+            foreach (var searchParam in searchParams)
+            {
+                try
+                {
+                    var t = searchParam.DateTo.Split('.');
+                    string dateTo = t[2] + t[1] + t[0];
+
+                    t = searchParam.DateFrom.Split('.');
+                    string dateFrom = t[2] + t[1] + t[0];
+
+                    string urlParams = string.Format("ADULT={0}&CHILD={1}&CHECKIN_BEG={2}&CHECKIN_END={3}&NIGHTMAX={4}&NIGHTMIN={5}&STATE={6}&CURRENCY=1&PARTITION_PRICE=40&COSTMAX={9}&COSTMIN={8}&FILTER=6&PRICE_PAGE=1&RECONPAGE=400&UFILTER=0&REGULAR=True&CHARTER=True&SORT_TYPE=0&REGIONTO=&TOWNFROM={7}",
+                       searchParam.AdultCount, searchParam.ChildCount, dateFrom, dateTo, searchParam.NightEnd, searchParam.NightStart, searchParam.ToCityId, searchParam.FromCityId, searchParam.MinCost, searchParam.MaxCost);
+
+                    string url = "https://webapisearch.anextour.com/b2c/Search?" + urlParams;
+
+                    string html = await httpClient.GetStringAsync(url);
+
+                    var result = new List<FoundTour>();
+
+                    dynamic items = JsonConvert.DeserializeObject(html);
+
+                    foreach (var it in items[0].prices)
+                    {
+                        string date = it.CheckIn;
+                        date = date.Substring(6, 2) + "." + date.Substring(4, 2) + "." + date.Substring(0, 4);
+                        var item = new FoundTour()
+                        {
+                            SearchId = searchParam.Id,
+                            Tour = new TourItem()
+                            {
+                                Cost = it.converted_price,
+                                PageUrl = "https://www.anextour.com" + it.Slug + "?" + urlParams,
+                                HotelId = (int)it.HotelInc,
+                                MealDescription = it.MealNote,
+                                Date = date,
+                                TownName = it.TownName,
+                                CityTo = items[0].state.name
+                            }
+                        };
+                        result.Add(item);
+                    }
+                    results.AddRange(result);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+            }
+            return results;
         }
 
         public override async Task<List<TourItem>> GetTours(SearchTourItem searchParams)
@@ -43,15 +96,27 @@ namespace TourApp.Scraper
 
                 foreach (var it in items[0].prices)
                 {
-                    Console.WriteLine(it.HotelInc);
-                    var item = new TourItem() { Cost = it.converted_price,
-                        PageUrl = "https://www.anextour.com" + it.Slug + "?" + urlParams,
-                        HotelId = (int)it.HotelInc,
-                        MealDescription = it.MealNote,
-                        Date = it.hotelCheckIn,
-                        TownName = it.TownName
-                    };
-                    result.Add(item);
+
+                    try
+                    {
+                        string date = it.CheckIn;
+                        date = date.Substring(6, 2) + "." + date.Substring(4, 2) + "." + date.Substring(0, 4);
+                        var item = new TourItem()
+                        {
+                            Cost = it.converted_price,
+                            PageUrl = "https://www.anextour.com" + it.Slug + "?" + urlParams,
+                            HotelId = (int)it.HotelInc,
+                            MealDescription = it.MealNote,
+                            Date = date,
+                            TownName = it.TownName,
+                            CityTo = items[0].state.name
+                        };
+                        result.Add(item);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex);
+                    }
                 }
                 return result;
             }
@@ -62,7 +127,7 @@ namespace TourApp.Scraper
             }
         }
 
-        public async Task<string> ImgUrl(int hotelId)
+        public static async Task<string> ImgUrl(int hotelId)
         {
             try
             {
@@ -75,7 +140,7 @@ namespace TourApp.Scraper
 
                 return (string)items[0].Img;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e);
                 return "";

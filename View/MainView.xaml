@@ -34,7 +34,7 @@
                 </Border>
             </DockPanel>
             <local:ResultView x:Name="resultGridView" Grid.Row="1"  Grid.Column="0" Height="{Binding HeightGrid}"/>
-            <!--<local:AutoSearchView Grid.Row="0" Grid.Column="1"/>-->
+            <local:AutoSearchView Grid.Row="0" Grid.Column="1"/>
         </Grid>
     </Grid>
 </Window>

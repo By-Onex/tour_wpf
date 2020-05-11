@@ -23,11 +23,8 @@ namespace TourApp.Scraper
             {
                 try
                 {
-                    var t = searchParam.DateTo.Split('.');
-                    string dateTo = t[2] + t[1] + t[0];
-
-                    t = searchParam.DateFrom.Split('.');
-                    string dateFrom = t[2] + t[1] + t[0];
+                    string dateTo = string.Join("", searchParam.DateTo.Split('.').Reverse().ToArray());
+                    string dateFrom = string.Join("", searchParam.DateFrom.Split('.').Reverse().ToArray());
 
                     string urlParams = string.Format("ADULT={0}&CHILD={1}&CHECKIN_BEG={2}&CHECKIN_END={3}&NIGHTMAX={4}&NIGHTMIN={5}&STATE={6}&CURRENCY=1&PARTITION_PRICE=40&COSTMAX={9}&COSTMIN={8}&FILTER=6&PRICE_PAGE=1&RECONPAGE=400&UFILTER=0&REGULAR=True&CHARTER=True&SORT_TYPE=0&REGIONTO=&TOWNFROM={7}",
                        searchParam.AdultCount, searchParam.ChildCount, dateFrom, dateTo, searchParam.NightEnd, searchParam.NightStart, searchParam.ToCityId, searchParam.FromCityId, searchParam.MinCost, searchParam.MaxCost);
